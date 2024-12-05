@@ -6,14 +6,14 @@ def setup_database():
     c = conn.cursor()
 
     # Insert a test user
-    username = 'james'
+    username = 'test'
     password = generate_password_hash('password123')
     c.execute("INSERT OR REPLACE INTO users (username, password) VALUES (?, ?)", (username, password))
 
     conn.commit()
     conn.close()
 
-    print("james  user created successfully.")
+    print("test  user created successfully.")
 
 if __name__ == '__main__':
     setup_database()
