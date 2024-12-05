@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Student - Hazard Preschool Plus{% endblock %}
+
+{% block content %}
+<p> <a href="{{ url_for('index') }}">Back to All Students</a> | <a href="{{ url_for('manage', student_id=student.StudentID) }}">Manage: {{ student.FirstName }} {{ student.LastName }}</a> | Edit: {{ student.FirstName }} {{ student.LastName }} </p>
+            <h2>Update Student Information</h2>
+            <form action="/update_student/{{ student.StudentID }}" method="POST">
+                <div class="form-section">
+                        <h3>Parent Information</h3>
+                        <div class="form-group">
+                            <label for="parent_first_name">Parent First Name:</label>
+                            <input type="text" id="parent_first_name" name="parent_first_name" value="{{ parent.FirstName }}" required>
+                        </div>
+                    <div class="form-group">
+                        <label for="parent_last_name">Parent Last Name:</label>
+                        <input type="text" id="parent_last_name" name="parent_last_name" value="{{ parent.LastName }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" value="{{ parent.Address }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" value="{{ parent.City }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State:</label>
+                        <input type="text" id="state" name="state" value="{{ parent.State }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode">Zip Code:</label>
+                        <input type="text" id="zipcode" name="zipcode" value="{{ parent.zipcode}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ parent.Email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" value="{{ parent.Phone }}">
+                    </div>
+
+                </div>
+
+                <div class="form-section">
+                    <h3>Student Information</h3>
+                    <div class="form-group">
+                        <label for="student_first_name">Student First Name:</label>
+                        <input type="text" id="student_first_name" name="student_first_name" value="{{ student.FirstName }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student_last_name">Student Last Name:</label>
+                        <input type="text" id="student_last_name" name="student_last_name" value="{{ student.LastName }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="enrollment_status">Enrollment Status:</label>
+                        <select id="enrollment_status" name="enrollment_status">
+                            <option value="Active" {% if student.EnrollmentStatus == 'Active' %}selected{% endif %}>Active</option>
+                            <option value="Inactive" {% if student.EnrollmentStatus == 'Inactive' %}selected{% endif %}>Inactive</option>
+                            <option value="Pending" {% if student.EnrollmentStatus == 'Pending' %}selected{% endif %}>Pending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <input type="submit" value="Update Student Information">
+            </form>
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}

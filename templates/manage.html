@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}ALL Current Students - Hazard Preschool Plus{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <p style="color: {% if category == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<p> <a href="{{ url_for('index') }}">Back to All Students</a> | Manage: {{ student.FirstName }} {{ student.LastName }}</p>
+<div class="student-info">
+    <span class="student-name">{{ student.FirstName }} {{ student.LastName }}</span>
+    <div class="actions">
+        <form action="/enter_payment/{{ student.StudentID }}" method="get" style="display: inline;">
+            <button class="button button-primary">ENTER PAYMENT</button>
+        </form>
+        <form action="/edit_student/{{ student.StudentID }}" method="get" style="display: inline;">
+            <button class="button button-secondary" action="submit">EDIT INFO</button>
+        </form>
+    </div>
+</div>
+<div class="parent-info">
+    <div>
+        <strong>Parent Info:</strong>
+        <p>{{ parent.FirstName }} {{ parent.LastName }}</p>
+        <p>{{ parent.Address }}</p>
+        <p>{{ parent.City }}, {{ parent.State }} {{ parent.Zipcode }}</p>
+    </div>
+    <div>
+        <p>{{ parent.Phone }}</p>
+        <p>{{ parent.Email }}</p>
+        <form action="/bill_student/{{ student.StudentID }}" method="GET" style="display: inline;">
+            <button class="button button-warning" action="submit">CREATE NEW INVOICE</button>
+        </form>
+    </div>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>DATE</th>
+            <th>PAYMENT AMOUNT</th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.DatePaid }}</td>
+            <td>${{ '%.2f' | format(payment.Amount) }}</td>
+            <td class="actions">
+                <form action="/edit_payment/{{ student.StudentID }}/{{ payment.PaymentID }}" method="post" style="display: inline;">
+                    <button class="button button-secondary" action="submit">EDIT</button>
+                </form>
+                
+                <form action="/delete_payment/{{ student.StudentID }}/{{ payment.PaymentID }}" method="POST" style="display: inline;">
+                    <button class="button button-warning" action="submit" onclick="return confirm('Are you sure you want to delete this payment?');">DELETE</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="total">
+    <p>TOTAL: ${{ '%.2f' | format(total) }}</p>
+    <form action="/generate_statement/{{ student.StudentID }}" method="POST" style="display: inline;">
+        <button class="button button-secondary" action="submit">PRINT STATEMENT</button>
+    </form>
+    
+</div>
+{% endblock %}

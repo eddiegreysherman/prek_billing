@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/invoice.css') }}">
+</head>
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <h2>STATEMENT</h2>
+                            </td>
+                            <td>
+                                <strong>Hazard Preschool Plus</strong><br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Parent:</strong><br>
+                                {{ parent.FirstName }} {{ parent.LastName }}<br>
+                                {{ parent.Address }}<br>
+                                {{ parent.City }}, {{ parent.State }} {{ parent.ZipCode }}<br>
+                                {{ parent.Email }}<br>
+                                {{ parent.Phone }}
+                            </td>
+                            <td>
+                                <strong>Student:</strong><br>
+                                {{ student.FirstName }} {{ student.LastName }}<br>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Amount</td>
+                <td>Date Paid</td>
+            </tr>
+            {% for payment in payments %}
+            <tr class="item">
+                <td>${{ payment.Amount }}</td>
+                <td>{{ payment.DatePaid }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total">
+                <td></td>
+                <td>Total: ${{ total }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

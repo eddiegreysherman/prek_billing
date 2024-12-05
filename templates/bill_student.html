@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}ALL Current Students - Hazard Preschool Plus{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <p style="color: {% if category == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<p> <a href="{{ url_for('index') }}">Back to All Students</a> | <a href="{{ url_for('manage', student_id=student.StudentID) }}">Manage: {{ student.FirstName }} {{ student.LastName }}</a> | Bill Student: {{ student.FirstName }} {{ student.LastName }}</p>
+<h2>Create Invoice</h2>
+<form action="/generate_invoice/{{ student.StudentID }}" method="POST">
+    <div class="form-section">
+        <h3>Bill Student: {{ student.FirstName }} {{ student.LastName }}</h3>
+        <div class="form-group">
+            <label for="bill_amount">Bill Amount:</label>
+            <input type="text" id="bill_amount" name="bill_amount" required>
+        </div>
+        <div class="form-group">
+            <label for="payment_date">Due Date:</label>
+            <input type="date" id="due_date" name="due_date" required>
+        </div>
+    </div>
+
+    <input type="submit" value="Bill Student">
+</form>
+{% endblock %}

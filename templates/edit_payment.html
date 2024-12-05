@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Hazard Preschool Plus{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <p style="color: {% if category == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<p> <a href="{{ url_for('index') }}">Back to All Students</a> | <a href="{{ url_for('manage', student_id=student.StudentID) }}">Manage: {{ student.FirstName }} {{ student.LastName }}</a> | Edit Payment: {{ student.FirstName }} {{ student.LastName }} </p>
+            <h2>Edit Payment</h2>
+            <form action="/update_payment/{{ student.StudentID }}/{{ payment.PaymentID }}" method="POST">
+                <div class="form-section">
+                    <h3>Edit Payment for Student: {{ student.FirstName }} {{ student.LastName }}</h3>
+                    <div class="form-group">
+                        <label for="payment_amount">Payment Amount:</label>
+                        <input type="text" id="payment_amount" name="payment_amount" value="{{ payment.Amount }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_date">Payment Date:</label>
+                        <input type="date" id="payment_date" name="payment_date" value="{{ payment.DatePaid }}" required>
+                    </div>
+                </div>
+
+                <input type="submit" value="Update Payment">
+            </form>
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}

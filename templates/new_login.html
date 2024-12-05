@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Hazard Preschool Plus{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <p style="color: {% if category == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<div class="login-container">
+    <h2>Login</h2>
+    <form class="login-form" action="/login" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="button button-primary">Log In</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #d6d6d6;
+        border-radius: 8px;
+    }
+    .login-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="password"] {
+        width: 90%;
+        padding: 8px;
+        border: 1px solid #a3a3a3;
+        border-radius: 4px;
+        color: #000000;
+        font-size: larger;
+    }
+    .button {
+        align-self: flex-start;
+    }
+</style>
+{% endblock %}

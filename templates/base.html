@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hazard Preschool Plus{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/light_styles.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HAZARD PRESCHOOL PLUS</h1>
+            {% if username %}
+                <a href="{{ url_for('logout') }}" class="logout">{{ username }} - Logout</a>
+            {% endif %}
+        </header>
+        <div class="content">
+            
+            {% block content %}
+            <!-- Content will be inserted here -->
+            {% endblock %}
+        </div>
+    </div>
+    {% block scripts %}{% endblock %}
+    <footer style="text-align: center; margin-top: 20px;">
+        Designed and Developed by Queen City Systems LLC <a href="https://qcsys.org" target="_blank">qcsys.org</a>
+    </footer>
+</body>
+</html>
