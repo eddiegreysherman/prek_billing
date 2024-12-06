@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash
 from utils import get_db, login_required, get_student_info
 
 app = Flask(__name__)
-app.secret_key = 'ZPYxZ4CAzFm3D0PCDCW2pWDAe9BJ8jbh39IOXScPtfdl36viRCYqai3V4RSTck20'
+app.secret_key = 'SECRET'
 
 ####################################
 ##
